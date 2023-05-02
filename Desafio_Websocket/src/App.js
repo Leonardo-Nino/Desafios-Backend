@@ -24,13 +24,6 @@ app.set('views', path.resolve(__dirname, './views'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-//Configuration routes
-
-app.use('/', express.static(__dirname + '/public'))
-app.use('/api/products', productsRouters)
-app.use('/api/carts', cartsRouters)
-app.use('/api/realtimeproducts', realTimeRouters)
-
 const myServer = app.listen(port, () => {
   console.log(`Listening on port ${port}`)
 })
@@ -43,9 +36,9 @@ app.use((req, res, next) => {
   return next()
 })
 
-io.on('connection', (socket) => {
-  console.log('client connected')
-  socket.on('newProduc', (product) => {
-    console.log(product) //push newProduc
-  })
-})
+//Configuration routes
+
+app.use('/', express.static(__dirname + '/public'))
+app.use('/api/products', productsRouters)
+app.use('/api/carts', cartsRouters)
+app.use('/api/realtimeproducts', realTimeRouters)

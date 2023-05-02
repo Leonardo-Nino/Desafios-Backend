@@ -1,25 +1,6 @@
 <h1 class = "ms-2">Real time products</h1>
-<div>
-    {{#each products}}
-        <div class=' d-flex flex-wrap col-md-3 mx-2 my-3 r' >                                 
-                    <div class="card w-100 mt-5 border border-dark" >
-                            <div class="card-header text-white bg-dark">
-                                {{this.title}}
-                            </div> 
-                            <div class="card-body">
-                                <img src= {{this.thumbnail}} alt= "Products img" class='card-img' >
-                                
-                                <br />
-                                Price:  €  {{this.price}}  
-                                <br />
-                                Stock : {{this.stock}} 
-                                <br />
-                                <br />                
-                                <button type="button" class="btn btn-outline-dark">Delete</button>
-                            </div>                                                                                   
-                    </div>
-        </div>
-    {{/each }}
+<div id="productList"> </div>
+
     <div>
         <form  id= "formNewProduc" class=" row g-3 w-50 ms-3 ">
             <div class="col-auto ms-3 ">
@@ -42,4 +23,3 @@
             </div>
         </form>
     </div> 
-</div>

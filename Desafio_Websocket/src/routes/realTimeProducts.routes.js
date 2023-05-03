@@ -13,11 +13,11 @@ realTimeRouters.get('/', async (req, res) => {
 
     req.io.emit('products', products)
 
-    // socket.on('newProduc', (product) => {
-    //   console.log(product)
-    //   products.push(product)
-    //   req.io.emit('products', product)
-    // })
+    socket.on('newProduc', (product) => {
+      console.log(product)
+      //myProductManager.addProduct(product) // no logro que tranformar la  Informacion que me llega desde le cliente
+      req.io.emit('products', product)
+    })
     //socket.on('eliminarProd', codigo => {
     // desarrollar la logica para eliminar el prod con el code que me pasan del producto
 
@@ -26,7 +26,6 @@ realTimeRouters.get('/', async (req, res) => {
     // })
   })
 
-  req.io.emit('Hola', 'Hola product')
   res.render('realTimeProducts')
 })
 

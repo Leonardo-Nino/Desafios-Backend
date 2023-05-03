@@ -47,8 +47,8 @@ productsRouters.post('/', async (req, res) => {
     code,
     stock,
   })
-  const products = await myProductManager.getProducts()
-  req.io.emit('productList', { product: products })
+  //const products = await myProductManager.getProducts()
+  //req.io.emit('productList', { product: products })
   res.send('Product added successfully')
 })
 
@@ -77,7 +77,7 @@ productsRouters.put('/:id', async (req, res) => {
     stock,
   })
   const products = await myProductManager.getProducts()
-  req.io.emit('productList', { product: products })
+  //req.io.emit('productList', { product: products })
   res.send(message)
 })
 
@@ -85,8 +85,8 @@ productsRouters.delete('/:id', async (req, res) => {
   const id = req.params.id
   const message = await myProductManager.deleteProduct(id)
 
-  const products = await myProductManager.getProducts()
-  req.io.emit('productList', { product: products })
+  //const products = await myProductManager.getProducts()
+  //req.io.emit('productList', { product: products })
 
   res.send(message)
 })

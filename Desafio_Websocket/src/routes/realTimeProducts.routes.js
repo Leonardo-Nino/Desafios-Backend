@@ -6,24 +6,24 @@ const realTimeRouters = Router()
 const myProductManager = new ProductManager('./products.txt')
 
 realTimeRouters.get('/', async (req, res) => {
-  const products = await myProductManager.getProducts()
-
   req.io.on('connection', (socket) => {
     console.log('client connected')
 
-    req.io.emit('products', products)
+    //req.io.emit('products', products) //renderizo los product primera vez
 
-    socket.on('newProduc', (product) => {
-      console.log(product)
-      //myProductManager.addProduct(product) // no logro que tranformar la  Informacion que me llega desde le cliente
-      req.io.emit('products', product)
+    socket.on('newProduc', async (product) => {
+      const products = await myProductManager.getProducts()
+
+      //req.io.emit('products', products) //renderizo de vuelta
+
+      myProductManager.addProduct(product)
+
+      products
+
+      req.io.emit('products', products) //renderizo de vuelta
     })
     //socket.on('eliminarProd', codigo => {
     // desarrollar la logica para eliminar el prod con el code que me pasan del producto
-
-    // Con este le mandas el listado actualizado y deberia ya escucharlo el cliente y mostrarlo
-    // req.io.emit("listado", products)
-    // })
   })
 
   res.render('realTimeProducts')

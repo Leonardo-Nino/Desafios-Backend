@@ -1,7 +1,5 @@
 const socket = io()
 
-const productos = [] //  only fot testing
-
 const formProduct = document.getElementById('formNewProduc')
 
 formProduct.addEventListener('submit', (e) => {
@@ -12,31 +10,27 @@ formProduct.addEventListener('submit', (e) => {
 
   //console.log(product)
 
-  socket.emit('newProduc', { product }) //envie los product
+  socket.emit('newProduc', product) //envie los product
 })
 
 const productList = document.getElementById('productList')
 
 socket.on('products', (product) => {
   productList.innerHTML = ''
-  productos.push(product)
-  console.log(productos.product)
 
-  // product.forEach((product) => {
-  //   productList.innerHTML += `<div class="card w-25 mt-5 border border-dark">
-  //       <div class="card-header text-white bg-dark">${product.title}</div>
-  //       <div class="card-body">
-  //         Price: € ${product.price}
-  //         <br />
-  //         Stock : ${product.stock}
-  //         <br />
-  //         <br />
-  //         <button type="button" class="btn btn-outline-dark">
-  //           Delete
-  //         </button>
-  //       </div>
-  //     </div>`
-
-  //productList.innerHTML = prods
-  //})
+  product.forEach((product) => {
+    productList.innerHTML += `<div class="card w-25 mt-5 border border-dark">
+        <div class="card-header text-white bg-dark">${product.title}</div>
+        <div class="card-body">
+          Price: € ${product.price}
+          <br />
+          Stock : ${product.stock}
+          <br />
+          <br />
+          <button type="button" class="btn btn-outline-dark">
+            Delete
+          </button>
+        </div>
+      </div>`
+  })
 })

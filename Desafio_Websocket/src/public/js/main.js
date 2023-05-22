@@ -3,7 +3,7 @@ const socket = io()
 const formProduct = document.getElementById('formNewProduc')
 
 formProduct.addEventListener('submit', (e) => {
-  e.preventDefault()
+  //e.preventDefault()
   const productIterator = new FormData(e.target)
 
   const product = Object.fromEntries(productIterator)

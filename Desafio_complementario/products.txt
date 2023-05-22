@@ -1,0 +1,1 @@
+[{"title":"Mario","description":"Description Mario","price":60,"thumbnail":"mario.png","status":true,"category":"Exclusive","code":"marip123","stock":10,"id":2},{"title":"Luigy_Mansion","description":"Description luiefds","price":27,"thumbnail":"Luigy.png","status":true,"category":"Exclusive","code":"mluiegy123","stock":43,"id":3}]

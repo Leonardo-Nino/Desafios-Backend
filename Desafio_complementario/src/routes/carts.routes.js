@@ -15,7 +15,6 @@ cartsRouters.get('/:cid', async (req, res) => {
 
   res.send(cart)
 })
-
 cartsRouters.post('/:cid/product/:pid', async (req, res) => {
   try {
     const cid = req.params.cid
@@ -23,12 +22,15 @@ cartsRouters.post('/:cid/product/:pid', async (req, res) => {
     const { quantity } = req.body
 
     const cart = await cartModel.findById({ _id: cid })
-    const addcart = cart.products.create({
+    const addProductTocart = {
       id_product: pid,
       quantity: quantity,
-    })
+    }
+
     console.log(cart)
-    console.log(addcart)
+    console.log(addProductTocart)
+    cart.products.push(addProductTocart)
+    cart.save()
   } catch (err) {
     console.log(err)
   }

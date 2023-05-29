@@ -26,9 +26,6 @@ cartsRouters.post('/:cid/product/:pid', async (req, res) => {
       id_product: pid,
       quantity: quantity,
     }
-
-    console.log(cart)
-    console.log(addProductTocart)
     cart.products.push(addProductTocart)
     cart.save()
   } catch (err) {

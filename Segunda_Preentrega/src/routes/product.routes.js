@@ -4,24 +4,15 @@ const productsRouters = Router()
 
 productsRouters.get('/', async (req, res) => {
   try {
-    const sort = req.query.sort === 'desc' ? -1 : 1
+    const sort = req.query.sort === 'desc' ? -1 : (req.query.sort = 0)
 
-    const query = req.query.query || ''
+    const category = req.query.category
 
-    const filter = query ? { category: query } : {}
+    const status = req.query.status
 
-    // const filter = {}
-
-    // if (category) {
-    //   filter.category = { category: query }
-    // }
-
-    // if (status) {
-    //   filter.status = { status: query }
-    //}
-
-    console.log(filter)
-    console.log(query)
+    const query = {}
+    category ? (query.category = category) : ''
+    status ? (query.status = status) : ''
 
     const options = {
       limit: parseInt(req.query.limit) || 10,
@@ -29,7 +20,8 @@ productsRouters.get('/', async (req, res) => {
       sort: { price: sort },
     }
 
-    const products = await productModel.paginate(filter, options)
+    const products = await productModel.paginate(query, options)
+    products.status = 'success'
 
     res.send(products) //{ docs: products } solo los productos sin meta data
   } catch (error) {

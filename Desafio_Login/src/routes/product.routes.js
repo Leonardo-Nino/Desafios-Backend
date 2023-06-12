@@ -20,10 +20,15 @@ productsRouters.get('/', async (req, res) => {
       sort: { price: sort },
     }
 
-    const products = await productModel.paginate(query, options)
-    products.status = 'success'
+    const product = await productModel.paginate(query, options)
+    product.status = 'success'
 
-    res.send(products) //{ docs: products } solo los productos sin meta data
+    //res.send({ products: product.docs })
+
+    res.render('home', {
+      product: product,
+      user: req.session.user,
+    }) //{ docs: products } solo los productos sin meta data
   } catch (error) {
     console.log(error)
 
@@ -37,12 +42,13 @@ productsRouters.get('/:id', async (req, res) => {
 
     const product = await productModel.findOne({ _id: id })
 
-    res.send({ products: product })
-    // res.render('products', {   REDERIZA pero me genera un error en la consola que no entiendo
-    //   title: product.title,
-    //   price: product.price,
-    //   stock: product.stock,
-    // })
+    // res.send({ products: product })
+    res.render('products', {
+      //REDERIZA pero me genera un error en la consola que no entiendo
+      title: product.title,
+      price: product.price,
+      stock: product.stock,
+    })
   } catch (error) {
     console.log(error)
     res.status(500).send('Error getting product')

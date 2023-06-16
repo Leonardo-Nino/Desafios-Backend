@@ -13,19 +13,18 @@
 
 
 <div class="d-flex flex-wrap">
-    {{#each product.docs}}
+    {{#each products}}
     <div class='col-md-3 mx-2 my-3 r' >                                 
                 <div class="card w-100 mt-5" >
-                        <div class="card-header bg-dark">
-                            {{!-- {{this.title}} --}}
+                        <div class="card-header text-white bg-dark">
+                            {{title}} 
                         </div> 
                         <div class="card-body">
-                            {{!-- <img src= {{this.thumbnail}}alt= "Products img" class='card-img' > --}}
-                            
+                            <img src= {{thumbnail}}alt= "Products img" class='card-img' >  
                             <br />
-                            {{!--    Price:  €  {{this.price}}   --}}
+                            Price:  €  {{price}}   
                             <br />
-                            {{!-- Stock : {{this.stock}}  --}}
+                            Stock : {{stock}}  
                         </div>                                                                                   
                 </div>
     </div>

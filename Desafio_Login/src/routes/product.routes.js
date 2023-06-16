@@ -18,15 +18,14 @@ productsRouters.get('/', async (req, res) => {
       limit: parseInt(req.query.limit) || 10,
       page: parseInt(req.query.page) || 1,
       sort: { price: sort },
+      lean: true,
     }
 
     const product = await productModel.paginate(query, options)
     product.status = 'success'
 
-    //res.send({ products: product.docs })
-
     res.render('home', {
-      product: product,
+      products: product.docs,
       user: req.session.user,
     }) //{ docs: products } solo los productos sin meta data
   } catch (error) {
@@ -42,12 +41,11 @@ productsRouters.get('/:id', async (req, res) => {
 
     const product = await productModel.findOne({ _id: id })
 
-    // res.send({ products: product })
     res.render('products', {
-      //REDERIZA pero me genera un error en la consola que no entiendo
       title: product.title,
       price: product.price,
       stock: product.stock,
+      thumbnail: product.thumbnail,
     })
   } catch (error) {
     console.log(error)

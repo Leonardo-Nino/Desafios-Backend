@@ -5,6 +5,10 @@ const userSchema = new Schema({
   last_name: String,
   email: String,
   age: Number,
+  role: {
+    type: String,
+    default: 'user',
+  },
   password: String,
 })
 

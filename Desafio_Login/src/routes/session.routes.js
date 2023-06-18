@@ -18,6 +18,7 @@ sessionRouter.post('/login', async (req, res) => {
       res.send('Mail or password error')
     }
     req.session.user = user
+
     res.redirect('/api/products')
   } catch {
     ;(error) => {

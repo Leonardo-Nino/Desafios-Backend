@@ -17,9 +17,7 @@ registerRouter.post('/', async (req, res) => {
 
     await user.save()
 
-    res.send('user created successfully')
-
-    res.redirect('login')
+    res.redirect('session/login')
   } catch {
     ;(err) => {
       console.log(err)

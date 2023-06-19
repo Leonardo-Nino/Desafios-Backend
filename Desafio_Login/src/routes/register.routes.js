@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { userModel } from '../models/user.js'
 import { hashPassword } from '../utils/bcrypt.js'
+import passport from 'passport'
 
 const registerRouter = Router()
 
@@ -12,15 +13,15 @@ registerRouter.get('/', async (req, res) => {
 
 registerRouter.post('/', async (req, res) => {
   try {
-    const { first_name, last_name, email, age, password } = req.body
+    const { email, password } = req.body
 
-    const newUser = new userModel({
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      age: age,
-      password: hashPassword(password),
-    })
+    const user = await userModel.findOne({ email })
+    if (user) {
+      return res.send('User already registered')
+    }
+    const hashPass = await hashPassword(password)
+
+    const newUser = { ...req.body, password: hashPass }
 
     await userModel.create(newUser)
 

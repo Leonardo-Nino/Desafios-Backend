@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { userModel } from '../models/user.js'
+import { validatePassword } from '../utils/bcrypt.js'
 
 const sessionRouter = Router()
 
@@ -12,10 +13,15 @@ sessionRouter.get('/login', async (req, res) => {
 sessionRouter.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body
-    const user = await userModel.findOne({ email, password }).lean()
+    const user = await userModel.findOne({ email })
 
     if (!user) {
-      res.send('Mail or password error')
+      res.send('Mail error')
+    }
+    const isValidPassword = await validatePassword(password, user.password)
+
+    if (!isValidPassword) {
+      res.send('Password error')
     }
     req.session.user = user
 

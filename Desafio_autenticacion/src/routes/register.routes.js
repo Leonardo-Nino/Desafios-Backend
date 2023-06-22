@@ -17,7 +17,7 @@ registerRouter.post('/', async (req, res) => {
 
     const user = await userModel.findOne({ email })
     if (user) {
-      return res.send('User already registered')
+      return res.send('User already registered whith email: ' + user.email)
     }
     const hashPass = await hashPassword(password)
 
@@ -33,5 +33,23 @@ registerRouter.post('/', async (req, res) => {
     }
   }
 })
+
+//Github
+
+registerRouter.get(
+  '/github',
+  passport.authenticate('github', { scope: ['user:email'] })
+)
+
+registerRouter.get(
+  '/githubcallback',
+  passport.authenticate('github', {
+    failureRedirect: '/api/session/login',
+  }),
+  async (req, res) => {
+    req.session.user = req.user
+    res.redirect('/api/products')
+  }
+)
 
 export default registerRouter

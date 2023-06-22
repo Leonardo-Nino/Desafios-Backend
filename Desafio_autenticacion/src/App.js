@@ -13,6 +13,7 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
+import './config/passportStrategies.js'
 
 import { engine } from 'express-handlebars'
 import { __dirname, __filename } from './path.js'
@@ -24,9 +25,24 @@ import mongoose, { mongo } from 'mongoose'
 const app = express()
 const port = 4000
 
-// cookies configuration
+// Cookies configuration
 
 app.use(cookieParser(process.env.SIGNED_COOKIES))
+
+// Passport configuration
+
+passport.serializeUser((user, done) => {
+  done(null, user._id)
+})
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await usersModel.findById(id)
+    done(null, user)
+  } catch (error) {
+    done(error)
+  }
+})
 
 // session  configuration
 

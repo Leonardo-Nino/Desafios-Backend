@@ -17,7 +17,7 @@ passport.use(
 
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile)
+        //console.log(profile)
         const user = await userModel.findOne({ email: profile._json.email })
         if (!user) {
           const newUser = new userModel({
@@ -47,7 +47,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await usersModel.findById(id)
+    const user = await userModel.findById(id)
     done(null, user)
   } catch (error) {
     done(error)

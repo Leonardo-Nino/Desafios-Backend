@@ -1,9 +1,6 @@
 import { Router } from 'express'
-import { productModel } from '..//models/products.js'
-
+import { productModel } from '../models/products.js'
 const productsRouters = Router()
-
-//Get all products
 
 productsRouters.get('/', async (req, res) => {
   try {
@@ -38,8 +35,6 @@ productsRouters.get('/', async (req, res) => {
   }
 })
 
-// Get product by Id
-
 productsRouters.get('/:id', async (req, res) => {
   try {
     const id = req.params.id
@@ -57,8 +52,6 @@ productsRouters.get('/:id', async (req, res) => {
     res.status(500).send('Error getting product')
   }
 })
-
-// Create a new product
 
 productsRouters.post('/', async (req, res) => {
   const {
@@ -83,8 +76,6 @@ productsRouters.post('/', async (req, res) => {
   })
   res.send('Product added successfully')
 })
-
-//Update product
 
 productsRouters.put('/:id', async (req, res) => {
   const id = req.params.id
@@ -116,8 +107,6 @@ productsRouters.put('/:id', async (req, res) => {
 
   res.send(message)
 })
-
-//Detect product
 
 productsRouters.delete('/:id', async (req, res) => {
   try {

@@ -1,11 +1,12 @@
 import { Router } from 'express'
-import { cartModel } from '../models/cart.js'
 
-const cartsRouter = Router()
+import { cartModel } from '../models/carts.js'
 
-//create new cart
+const cartsRouters = Router()
 
-cartsRouter.post('/', async (req, res) => {
+//create a new cart
+
+cartsRouters.post('/', async (req, res) => {
   const cart = await cartModel.create({})
 
   res.send(cart)
@@ -13,7 +14,7 @@ cartsRouter.post('/', async (req, res) => {
 
 // get all products of a cart
 
-cartsRouter.get('/:cid', async (req, res) => {
+cartsRouters.get('/:cid', async (req, res) => {
   const cid = req.params.cid
 
   const cart = await cartModel.find({ _id: cid })
@@ -23,7 +24,7 @@ cartsRouter.get('/:cid', async (req, res) => {
 
 // delete all products of a cart
 
-cartsRouter.delete('/:cid', async (req, res) => {
+cartsRouters.delete('/:cid', async (req, res) => {
   try {
     const cid = req.params.cid
 
@@ -42,7 +43,7 @@ cartsRouter.delete('/:cid', async (req, res) => {
 
 // add Products and quantity to cart
 
-cartsRouter.post('/:cid/product/:pid', async (req, res) => {
+cartsRouters.post('/:cid/product/:pid', async (req, res) => {
   try {
     const cid = req.params.cid
     const pid = req.params.pid
@@ -66,7 +67,7 @@ cartsRouter.post('/:cid/product/:pid', async (req, res) => {
 
 //  update the quantity of one product from cart
 
-cartsRouter.put('/:cid/product/:pid', async (req, res) => {
+cartsRouters.put('/:cid/product/:pid', async (req, res) => {
   try {
     const cid = req.params.cid
     const pid = req.params.pid
@@ -93,7 +94,7 @@ cartsRouter.put('/:cid/product/:pid', async (req, res) => {
 
 //delete one product of cart
 
-cartsRouter.delete('/:cid/product/:pid', async (req, res) => {
+cartsRouters.delete('/:cid/product/:pid', async (req, res) => {
   try {
     const cid = req.params.cid
     const pid = req.params.pid
@@ -117,4 +118,4 @@ cartsRouter.delete('/:cid/product/:pid', async (req, res) => {
   }
 })
 
-export default cartsRouter
+export default cartsRouters

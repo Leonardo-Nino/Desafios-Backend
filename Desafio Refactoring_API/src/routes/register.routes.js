@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { userModel } from '../models/user,js'
+import { userModel } from '../models/user.js'
 import { hashPassword } from '../utils/bcrypt.js'
-import { passport } from 'passport'
+import passport from 'passport'
 
 const registerRouter = Router()
 
-// routes for register new user
+// ruta para registrar users
 
 registerRouter.get('/', async (req, res) => {
   res.render('register')
@@ -21,7 +21,7 @@ registerRouter.post('/', async (req, res) => {
     }
     const hashPass = await hashPassword(password)
 
-    const newUser = { ...req.body, password: hashPass }
+    const newUser = { ...req.body, password: hashPass}
 
     await userModel.create(newUser)
 
@@ -34,7 +34,7 @@ registerRouter.post('/', async (req, res) => {
   }
 })
 
-//register with GitHub
+//Github
 
 registerRouter.get(
   '/github',

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
-import { cartModel } from '../models/cart.js'
+import { cartModel } from '../models/carts.js'
 
-userSchema = new Schema({
+const userSchema = new Schema({
   first_name: String,
   last_name: String,
   email: String,
@@ -18,16 +18,19 @@ userSchema = new Schema({
   },
 })
 
-//hook before user is created new cart is created
+//hook before create user
 
 userSchema.pre('save', async function (next) {
-  if (!this.isNew) return next()
+  if (!this.isNew) {
+    return next()
+  }
+
   try {
-    const newCart = new cartModel()
+    const newcart = new cartModel()
 
-    await newCart.save()
+    await newcart.save()
 
-    this.cart = newCart
+    this.cart = newcart._id
 
     return next()
   } catch (error) {

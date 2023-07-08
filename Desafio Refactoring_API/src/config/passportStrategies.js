@@ -1,6 +1,10 @@
+import 'dotenv/config'
+
 import passport from 'passport'
+
 import { Strategy as GitHubStrategy } from 'passport-github2'
-import { userModel } from './models/user.js'
+
+import { userModel } from '../models/user.js'
 
 passport.use(
   'github',
@@ -10,6 +14,7 @@ passport.use(
       clientSecret: process.env.GITHUB_SECRET,
       callbackURL: 'http://localhost:4000/api/register/githubcallback',
     },
+
     async (accessToken, refreshToken, profile, done) => {
       try {
         //console.log(profile)
@@ -34,15 +39,15 @@ passport.use(
   )
 )
 
-// To instantiate Session
+// Para inicial seccion
 
-passport.serializeUser = (user, done) => {
+passport.serializeUser((user, done) => {
   done(null, user._id)
-}
+})
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await userModel.findOne(id)
+    const user = await userModel.findById(id)
     done(null, user)
   } catch (error) {
     done(error)

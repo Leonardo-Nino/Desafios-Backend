@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { login, logout } from '../controllers/sessionController.js'
+import { login, logout } from '../controllers/session.controller.js'
 
 const sessionRouter = Router()
 
-//  route login
+// ruta para  login
 
 sessionRouter.get('/login', async (req, res) => {
   res.render('login')
@@ -11,7 +11,7 @@ sessionRouter.get('/login', async (req, res) => {
 
 sessionRouter.post('/login', login)
 
-//  route logout
+// ruta logout
 
 sessionRouter.get('/logout', logout)
 

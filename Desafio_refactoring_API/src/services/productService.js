@@ -25,10 +25,39 @@ export const getProducts = async (reqQuery) => {
     return error
   }
 }
-export const getProductsById = async (reqParams) => {
+
+export const getProductsById = async (id) => {
   try {
-    const productsById = await productModel.findOne(reqParams.id)
+    const productsById = await productModel.findById(id)
+
     return productsById
+  } catch (error) {
+    return error
+  }
+}
+
+export const createProduct = async (obj) => {
+  try {
+    const newProduct = await productModel.create(obj)
+    return newProduct
+  } catch (error) {
+    return error
+  }
+}
+
+export const updateProduct = async (id, obj) => {
+  try {
+    const product = await productModel.findByIdAndUpdate({ _id: id }, obj)
+    return product
+  } catch (error) {
+    return error
+  }
+}
+
+export const productDelete = async (id) => {
+  try {
+    const productDelete = await productModel.deleteOne({ _id: id })
+    return productDelete
   } catch (error) {
     return error
   }

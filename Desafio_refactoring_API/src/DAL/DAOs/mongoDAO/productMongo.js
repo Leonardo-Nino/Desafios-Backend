@@ -1,4 +1,4 @@
-import { productModel } from '../models/products.js'
+import { productModel } from '../../mongoDB/models/products.js'
 
 export const getProducts = async (reqQuery) => {
   try {

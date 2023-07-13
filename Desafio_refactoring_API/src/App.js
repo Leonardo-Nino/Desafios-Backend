@@ -1,6 +1,7 @@
 import 'dotenv/config'
 
 import express from 'express'
+import './config/configDB.js'
 import { Server } from 'socket.io'
 
 import productsRouters from './routes/product.routes.js'
@@ -16,9 +17,8 @@ import passport from 'passport'
 import './config/passportStrategies.js'
 
 import { engine } from 'express-handlebars'
-import { __dirname, __filename } from './path.js'
+import { __dirname, __filename } from './utils/path.js'
 import * as path from 'path'
-import mongoose, { mongo } from 'mongoose'
 
 // Configuration express
 
@@ -60,15 +60,6 @@ app.use(
     saveUninitialized: true,
   })
 )
-
-//moongoose configuration
-
-mongoose
-  .connect(process.env.URL_MONGOOSE)
-  .then(() => console.log('DB is connected'))
-  .catch((err) => {
-    console.log('Error connecting to Mongo')
-  })
 
 // Configuration handlebars
 

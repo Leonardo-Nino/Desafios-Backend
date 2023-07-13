@@ -1,7 +1,8 @@
-import { userModel } from '../models/user.js'
+import { userModel } from '../DAL/mongoDB/models/user.js'
+
 import { validatePassword } from '../utils/bcrypt.js'
 
-import { getUsers, getUsersByEmail } from '../services/userService.js'
+import { getUsers, getUsersByEmail } from '../DAL/DAOs/mongoDAO/userMongo.js'
 
 //login  controller
 
@@ -9,7 +10,6 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body
     const user = await getUsersByEmail({ email })
-    console.log(user)
 
     if (!user) {
       res.send('Mail or password error')

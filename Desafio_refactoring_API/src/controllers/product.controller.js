@@ -4,7 +4,7 @@ import {
   createProduct,
   updateProduct,
   productDelete,
-} from '../services/productService.js'
+} from '../DAL/DAOs/mongoDAO/productMongo.js'
 
 export const getAllProducts = async (req, res) => {
   try {

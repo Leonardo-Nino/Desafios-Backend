@@ -4,7 +4,7 @@ import passport from 'passport'
 
 import { Strategy as GitHubStrategy } from 'passport-github2'
 
-import { userModel } from '../models/user.js'
+import { userModel } from '../DAL/mongoDB/models/user.js'
 
 passport.use(
   'github',
@@ -38,8 +38,7 @@ passport.use(
     }
   )
 )
-
-// Para inicial seccion
+// Para inicial session
 
 passport.serializeUser((user, done) => {
   done(null, user._id)

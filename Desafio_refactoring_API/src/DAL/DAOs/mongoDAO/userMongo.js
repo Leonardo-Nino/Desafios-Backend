@@ -1,4 +1,4 @@
-import { userModel } from '../models/user.js'
+import { userModel } from '../../mongoDB/models/user.js'
 
 export const getUsers = async (req, res) => {
   try {

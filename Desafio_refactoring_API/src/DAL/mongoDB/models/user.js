@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { cartModel } from '../models/carts.js'
+import { cartModel } from './carts.js'
 
 const userSchema = new Schema({
   first_name: String,

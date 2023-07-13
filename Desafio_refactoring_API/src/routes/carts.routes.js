@@ -1,45 +1,19 @@
 import { Router } from 'express'
+import {
+  createCart,
+  getProducFromCart,
+  deleteAllProducsFromCart,
+} from '../controllers/cart.controller.js'
 
 import { cartModel } from '../DAL/mongoDB/models/carts.js'
 
 const cartsRouters = Router()
 
-//create a new cart
+cartsRouters.post('/', createCart)
 
-cartsRouters.post('/', async (req, res) => {
-  const cart = await cartModel.create({})
+cartsRouters.get('/:cid', getProducFromCart)
 
-  res.send(cart)
-})
-
-// get all products of a cart
-
-cartsRouters.get('/:cid', async (req, res) => {
-  const cid = req.params.cid
-
-  const cart = await cartModel.find({ _id: cid })
-
-  res.send(cart)
-})
-
-// delete all products of a cart
-
-cartsRouters.delete('/:cid', async (req, res) => {
-  try {
-    const cid = req.params.cid
-
-    const cart = await cartModel.findById({ _id: cid })
-
-    cart.products = []
-
-    await cartModel.updateOne({ _id: cid }, cart)
-
-    res.send('All the products were removed successfully')
-  } catch (err) {
-    console.log(err)
-    res.status(500).send('Error removing product')
-  }
-})
+cartsRouters.delete('/:cid', deleteAllProducsFromCart)
 
 // add Products and quantity to cart
 

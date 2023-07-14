@@ -1,8 +1,6 @@
 import { Router } from 'express'
 import { messagesModel } from '../DAL/mongoDB/models/messages.js'
 
-// import { messagesModel } from '../models/messages.js'
-
 const messagesRouters = Router()
 
 messagesRouters.get('/', async (req, res) => {

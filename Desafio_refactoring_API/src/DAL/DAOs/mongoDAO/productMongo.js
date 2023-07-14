@@ -1,5 +1,7 @@
 import { productModel } from '../../mongoDB/models/products.js'
 
+//Get product has pagination configuration
+
 export const getProducts = async (reqQuery) => {
   try {
     const sort = reqQuery.sort === 'desc' ? -1 : (reqQuery.sort = 0)

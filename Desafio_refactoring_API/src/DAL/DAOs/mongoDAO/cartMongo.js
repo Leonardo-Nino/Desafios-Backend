@@ -9,7 +9,7 @@ export const newCart = async () => {
   }
 }
 
-export const getProducCart = async (id) => {
+export const getCart = async (id) => {
   try {
     const producsCart = await cartModel.findById(id)
     return producsCart
@@ -18,7 +18,7 @@ export const getProducCart = async (id) => {
   }
 }
 
-export const deleteProducsCart = async (id, cart) => {
+export const updateCart = async (id, cart) => {
   try {
     const updateProduct = await cartModel.updateOne(id, cart)
     return updateProduct

@@ -1,5 +1,6 @@
 import { newCart, getCart, updateCart } from '../DAL/DAOs/mongoDAO/cartMongo.js'
-
+import { getUsersByCustomFilter } from '../DAL/DAOs/mongoDAO/userMongo.js'
+import { userModel } from '../DAL/mongoDB/models/user.js'
 //create a new cart
 
 export const createCart = async (res, req) => {
@@ -110,5 +111,23 @@ export const deleteProductFromCart = async (req, res) => {
     res.status(200).send('Product removed successfully')
   } catch (error) {
     res.status(500).send('Error removing product' + error)
+  }
+}
+
+export const generatePucharse = async (req, res) => {
+  const cid = req.params.cid
+  const cart = await getCart({ _id: cid })
+  const user = await getUsersByCustomFilter({ cart: cid })
+
+  try {
+    if (user) {
+      console.log(user.first_name)
+    } else {
+      console.log('No se encontró ningún usuario')
+    }
+
+    res.send('todo bien')
+  } catch (err) {
+    console.log(err)
   }
 }

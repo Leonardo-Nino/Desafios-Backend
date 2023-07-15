@@ -17,3 +17,11 @@ export const getUsersByEmail = async (email) => {
     return error
   }
 }
+export const getUsersByCustomFilter = async (filter) => {
+  try {
+    const user = await userModel.findOne(filter)
+    return user
+  } catch (error) {
+    return error
+  }
+}

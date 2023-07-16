@@ -1,6 +1,9 @@
+import { v4 as uniqueCodeId } from 'uuid'
 import { newCart, getCart, updateCart } from '../DAL/DAOs/mongoDAO/cartMongo.js'
 import { getUsersByCustomFilter } from '../DAL/DAOs/mongoDAO/userMongo.js'
-import { userModel } from '../DAL/mongoDB/models/user.js'
+import { newOrder } from '../DAL/DAOs/mongoDAO/ordersMongo.js'
+import { getProductsById } from '../DAL/DAOs/mongoDAO/productMongo.js'
+
 //create a new cart
 
 export const createCart = async (res, req) => {
@@ -114,19 +117,36 @@ export const deleteProductFromCart = async (req, res) => {
   }
 }
 
+//New Orders
+
 export const generatePucharse = async (req, res) => {
   const cid = req.params.cid
   const cart = await getCart({ _id: cid })
   const user = await getUsersByCustomFilter({ cart: cid })
+  let total = 0
 
   try {
     if (user) {
-      console.log(user.first_name)
+      for (const product of cart.products) {
+        const quantity = product.quantity
+        const productId = product.id_product
+        const productData = await getProductsById(productId)
+        const Subtotal = productData.price * quantity
+        total += Subtotal
+      }
+
+      // const generateNewOrder = await newOrder(order)
+      const order = {
+        code: uniqueCodeId(),
+        pucharse_datetime: new Date(),
+        amount: total,
+        purchaser: user.email,
+      }
+
+      res.send(order)
     } else {
       console.log('No se encontró ningún usuario')
     }
-
-    res.send('todo bien')
   } catch (err) {
     console.log(err)
   }

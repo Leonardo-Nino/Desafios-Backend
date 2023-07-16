@@ -11,7 +11,6 @@ export const login = async (req, res, next) => {
     const { email, password } = req.body
     const user = await getUsersByEmail({ email })
 
-    console.log(req.session.user)
     if (!user) {
       res.send('Mail or password error')
     }
@@ -21,10 +20,6 @@ export const login = async (req, res, next) => {
       res.send('Mail or password error')
     }
     req.session.user = user
-  
-
-
-  
 
     res.redirect('/api/products')
 

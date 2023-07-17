@@ -1,5 +1,3 @@
-import { userModel } from '../DAL/mongoDB/models/user.js'
-
 import { validatePassword } from '../utils/bcrypt.js'
 
 import { getUsers, getUsersByEmail } from '../DAL/DAOs/mongoDAO/userMongo.js'
@@ -19,6 +17,7 @@ export const login = async (req, res, next) => {
     if (!isValidPassword) {
       res.send('Mail or password error')
     }
+
     req.session.user = user
 
     res.redirect('/api/products')

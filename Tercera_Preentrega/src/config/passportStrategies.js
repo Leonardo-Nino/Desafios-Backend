@@ -4,7 +4,13 @@ import passport from 'passport'
 
 import { Strategy as GitHubStrategy } from 'passport-github2'
 
+import { Strategy as LocalStrategy } from 'passport-local'
+
 import { userModel } from '../DAL/mongoDB/models/user.js'
+
+//local strategy
+
+//github
 
 passport.use(
   'github',

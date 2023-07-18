@@ -12,7 +12,8 @@ export const getAllProducts = async (req, res) => {
     res.render('home', {
       products: product.docs,
       user: req.session.user,
-    }) //{ docs: products } solo los productos sin meta data
+    })
+    //{ docs: products } solo los productos sin meta data
   } catch (error) {
     res.status(500).send('Error getting products')
   }

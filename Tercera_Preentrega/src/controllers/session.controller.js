@@ -1,28 +1,21 @@
+import passport from 'passport'
+
 import { validatePassword } from '../utils/bcrypt.js'
 
 import { getUsers, getUsersByEmail } from '../DAL/DAOs/mongoDAO/userMongo.js'
 
-//login  controller
-
-export const login = async (req, res, next) => {
+export const login = async (req, res) => {
   try {
-    const { email, password } = req.body
-    const user = await getUsersByEmail({ email })
-
-    if (!user) {
-      res.send('Mail or password error')
+    if (!req.user) return res.status(400).send('error loading user' + error)
+    req.session.user = {
+      first_name: req.user.first_name,
+      last_name: req.user.last_name,
+      age: req.user.age,
+      email: req.user.email,
+      role: req.user.role,
+      cart: req.user.cart,
     }
-    const isValidPassword = await validatePassword(password, user.password)
-
-    if (!isValidPassword) {
-      res.send('Mail or password error')
-    }
-
-    req.session.user = user
-
-    res.redirect('/api/products')
-
-    res.status(200).send({ status: 'success' })
+    res.status(200).redirect('/api/products')
   } catch {
     ;(error) => {
       console.error(error)

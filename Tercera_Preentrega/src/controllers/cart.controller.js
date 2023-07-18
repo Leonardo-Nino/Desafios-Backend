@@ -126,7 +126,10 @@ export const generatePucharse = async (req, res) => {
   const cid = req.params.cid
   const cart = await getCart({ _id: cid })
   const user = await getUsersByCustomFilter({ cart: cid })
+  const productWithoutStock = []
+  const productWithStockID = []
   let totalAmount = 0
+
   //console.log(req.session)
 
   try {
@@ -135,29 +138,38 @@ export const generatePucharse = async (req, res) => {
         const quantity = product.quantity
         const productId = product.id_product
         const productData = await getProductsById(productId)
+
         if (productData.stock === 0) {
-          console.log(`Product ${productData.title} has no stock`)
+          productWithoutStock.push(productData)
           continue
+        } else {
+          productWithStockID.push(productData._id)
         }
-        //productData.stock -= quantity
-        console.log(productData)
+        //  Update  stock  from product
+        productData.stock -= quantity
+        await updateProduct(productId, { stock: productData.stock })
+
+        //Generate total amount  for orders
         const Subtotal = productData.price * quantity
         totalAmount += Subtotal
+
+        // update cart product
+        const toUpdateCart = { $pull: { products: { id_product: productId } } }
+        await updateCart({ _id: cid }, toUpdateCart)
       }
 
-      const order = {
+      const generateNewOrder = await newOrder({
         code: uniqueCodeId(),
         pucharse_datetime: new Date(),
         amount: totalAmount,
         purchaser: user.email,
-      }
+      })
 
-      // const generateNewOrder = await newOrder(order) pasar el order directo aca como parametro
-      res.send(order)
+      res.status(200).send(productWithoutStock)
     } else {
       console.log('User no auth')
     }
   } catch (err) {
-    console.log(err)
+    res.status(500).send('Erro generating order' + err)
   }
 }

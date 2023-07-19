@@ -1,9 +1,10 @@
 import { Router } from 'express'
+import { auth } from '../middleware/auth.js'
 import { messagesModel } from '../DAL/mongoDB/models/messages.js'
 
 const messagesRouters = Router()
 
-messagesRouters.get('/', async (req, res) => {
+messagesRouters.get('/', auth(['user']), async (req, res) => {
   try {
     req.io.on('connection', async (socket) => {
       console.log('client connected')

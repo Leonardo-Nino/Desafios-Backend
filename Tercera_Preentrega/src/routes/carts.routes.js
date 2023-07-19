@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { auth } from '../middleware/auth.js'
 import {
   createCart,
   getProducFromCart,
@@ -17,7 +18,7 @@ cartsRouters.get('/:cid', getProducFromCart)
 
 cartsRouters.delete('/:cid', deleteAllProducsFromCart)
 
-cartsRouters.post('/:cid/product/:pid', addProductToCart)
+cartsRouters.post('/:cid/product/:pid', auth(['user']), addProductToCart)
 
 cartsRouters.put('/:cid/product/:pid', updateQuantity)
 

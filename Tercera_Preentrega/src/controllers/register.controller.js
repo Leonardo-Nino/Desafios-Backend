@@ -1,7 +1,6 @@
 import { createUser } from '../DAL/DAOs/mongoDAO/registerMongo.js'
 import { userModel } from '../DAL/mongoDB/models/user.js'
 import { transporter } from '../utils/nodemailer.js'
-transporter
 
 export const newUser = async (req, res) => {
   const { email } = req.body
@@ -15,7 +14,7 @@ export const newUser = async (req, res) => {
       await transporter.sendMail({
         to: email,
         subject: `Welcome  ${user.first_name}`,
-        text: `User  create successfully `,
+        text: `User created successfully `,
       })
       res.status(200).redirect('session/login')
     }

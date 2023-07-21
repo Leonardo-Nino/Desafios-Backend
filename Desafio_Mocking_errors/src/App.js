@@ -9,6 +9,7 @@ import cartsRouters from './routes/carts.routes.js'
 import messagesRouters from './routes/messages.routes.js'
 import sessionRouters from './routes/session.routes.js'
 import registerRouter from './routes/register.routes.js'
+import mockingProductsRouter from './Testing/routes/mockingproducts.routes.js'
 
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -83,3 +84,4 @@ app.use('/api/carts', cartsRouters)
 app.use('/api/messages', messagesRouters)
 app.use('/api/session', sessionRouters)
 app.use('/api/register', registerRouter)
+app.use('/api/mockingproducts', mockingProductsRouter)

@@ -20,6 +20,7 @@ import initializePassport from './config/passportStrategies.js'
 import { engine } from 'express-handlebars'
 import { __dirname, __filename } from './utils/path.js'
 import * as path from 'path'
+import errorHandler from '../src/middleware/errors.js'
 
 // Configuration express
 
@@ -85,3 +86,5 @@ app.use('/api/messages', messagesRouters)
 app.use('/api/session', sessionRouters)
 app.use('/api/register', registerRouter)
 app.use('/api/mockingproducts', mockingProductsRouter)
+
+app.use(errorHandler)

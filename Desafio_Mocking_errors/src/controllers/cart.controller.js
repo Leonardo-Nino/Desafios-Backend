@@ -1,4 +1,9 @@
 import { v4 as uniqueCodeId } from 'uuid'
+
+import CustomError from '../errors/customError.js'
+import EError from '../errors/enums.js'
+import { generateErrorAddProductToCart } from '../errors/info.js'
+
 import { newCart, getCart, updateCart } from '../DAL/DAOs/mongoDAO/cartMongo.js'
 import { getUsersByCustomFilter } from '../DAL/DAOs/mongoDAO/userMongo.js'
 import { newOrder } from '../DAL/DAOs/mongoDAO/ordersMongo.js'
@@ -48,13 +53,27 @@ export const deleteAllProducsFromCart = async (req, res) => {
 }
 // add Products and quantity to cart (quantity is required)
 
-export const addProductToCart = async (req, res) => {
+export const addProductToCart = async (req, res, next) => {
   const cid = req.params.cid
   const pid = req.params.pid
   const { quantity } = req.body
   const cart = await getCart({ _id: cid })
+  const product = await getProductsById({ _id: pid })
 
   try {
+    if (!cart || !quantity || !product) {
+      CustomError.createError({
+        name: 'Product creation error',
+        cause: generateErrorAddProductToCart({
+          cart,
+          product,
+          quantity,
+        }),
+        message: 'Error adding product to cart',
+        code: EError.INVALID_ARGUMENT,
+      })
+    }
+
     const Addproducts = {
       id_product: pid,
       quantity: quantity,
@@ -66,7 +85,7 @@ export const addProductToCart = async (req, res) => {
 
     res.status(200).send('Product added to cart')
   } catch (error) {
-    res.status(500).send('Error adding product to cart' + error)
+    next(error)
   }
 }
 //  update the quantity of one product from cart

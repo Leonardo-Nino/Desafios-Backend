@@ -1,3 +1,6 @@
+import CustomError from '../errors/customError.js'
+import EError from '../errors/enums.js'
+import { generateErrorAddProduct } from '../errors/info.js'
 import {
   getProducts,
   getProductsById,
@@ -36,7 +39,7 @@ export const getProductById = async (req, res) => {
   }
 }
 
-export const postNewProduct = async (req, res) => {
+export const postNewProduct = async (req, res, next) => {
   const {
     title,
     description,
@@ -49,11 +52,27 @@ export const postNewProduct = async (req, res) => {
   } = req.body
 
   try {
+    if (!title || !description || !price || !category || !code || !stock) {
+      CustomError.createError({
+        name: 'Product creation error',
+        cause: generateErrorAddProduct({
+          title,
+          description,
+          price,
+          category,
+          code,
+          stock,
+        }),
+        message: 'Error creating product',
+        code: EError.INVALID_TYPES_ERROR,
+      })
+    }
+
     await createProduct(req.body)
 
     res.status(200).send('Product added successfully')
   } catch (error) {
-    return res.status(500).send('Error creating  product')
+    next(error)
   }
 }
 

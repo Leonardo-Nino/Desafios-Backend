@@ -59,15 +59,12 @@ export const addProductToCart = async (req, res, next) => {
   const { quantity } = req.body
   const cart = await getCart({ _id: cid })
   const product = await getProductsById({ _id: pid })
-
   try {
-    if (!cart || !quantity || !product) {
+    if (product._id === undefined || quantity <= 0) {
       CustomError.createError({
         name: 'Product creation error',
         cause: generateErrorAddProductToCart({
-          cart,
           product,
-          quantity,
         }),
         message: 'Error adding product to cart',
         code: EError.INVALID_ARGUMENT,

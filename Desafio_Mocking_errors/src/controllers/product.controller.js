@@ -77,7 +77,7 @@ export const postNewProduct = async (req, res, next) => {
 }
 
 export const putProduct = async (req, res) => {
-  const { id } = req.params.c
+  const { id } = req.params
 
   const { title, description, price, thumbnail, status, category, stock } =
     req.body

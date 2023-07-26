@@ -12,7 +12,5 @@ export const generateErrorAddProduct = (product) => {
 export const generateErrorAddProductToCart = (product) => {
   return `One or more propieties  to add product to cart were incomplete or invalid.
   List of propieties:
-  Cart : need to  by a string, received 
-  Product: need to  by a id from mongoDB, received 
-  Quantity: need to  by a number, received ${quantity}`
+  Product: need to  by a id from mongoDB, received ${product._id}, product not found`
 }

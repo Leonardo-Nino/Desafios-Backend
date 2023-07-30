@@ -22,6 +22,8 @@ import { __dirname, __filename } from './utils/path.js'
 import * as path from 'path'
 import errorHandler from '../src/middleware/errors.js'
 
+import { loggerDev, loggerProduction } from './utils/loggerWinston.js'
+
 // Configuration express
 
 const app = express()
@@ -88,3 +90,17 @@ app.use('/api/register', registerRouter)
 app.use('/api/mockingproducts', mockingProductsRouter)
 
 app.use(errorHandler)
+
+loggerDev.fatal('fatal error')
+loggerDev.error('error')
+loggerDev.warning('warning')
+loggerDev.info('info')
+loggerDev.http('http://localhost:')
+loggerDev.debug('Debug')
+
+loggerProduction.fatal('falta')
+loggerProduction.error('error')
+loggerProduction.warning('INFO !')
+loggerProduction.info('IRENE INFO 2')
+loggerProduction.http('http://localhost:')
+loggerProduction.debug('Debug')

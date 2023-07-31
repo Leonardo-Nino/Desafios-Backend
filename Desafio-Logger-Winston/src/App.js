@@ -10,6 +10,7 @@ import messagesRouters from './routes/messages.routes.js'
 import sessionRouters from './routes/session.routes.js'
 import registerRouter from './routes/register.routes.js'
 import mockingProductsRouter from './Testing/routes/mockingproducts.routes.js'
+import loggerRoutes from './routes/loggerTest.routes.js'
 
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -22,7 +23,9 @@ import { __dirname, __filename } from './utils/path.js'
 import * as path from 'path'
 import errorHandler from '../src/middleware/errors.js'
 
-import { loggerDev, loggerProduction } from './utils/loggerWinston.js'
+import { loggerDev } from './utils/loggerWinston.js'
+
+import { loggerMiddleware } from './middleware/logger.js'
 
 // Configuration express
 
@@ -65,9 +68,10 @@ app.set('views', path.resolve(__dirname, './views'))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(loggerMiddleware)
 
 const myServer = app.listen(port, () => {
-  console.log(`Listening on port ${port}`)
+  loggerDev.info(`Listening on port ${port}`)
 })
 
 // server Io
@@ -88,19 +92,6 @@ app.use('/api/messages', messagesRouters)
 app.use('/api/session', sessionRouters)
 app.use('/api/register', registerRouter)
 app.use('/api/mockingproducts', mockingProductsRouter)
+app.use('/api/loggerTest', loggerRoutes)
 
 app.use(errorHandler)
-
-loggerDev.fatal('fatal error')
-loggerDev.error('error')
-loggerDev.warning('warning')
-loggerDev.info('info')
-loggerDev.http('http://localhost:')
-loggerDev.debug('Debug')
-
-loggerProduction.fatal('falta')
-loggerProduction.error('error')
-loggerProduction.warning('INFO !')
-loggerProduction.info('IRENE INFO 2')
-loggerProduction.http('http://localhost:')
-loggerProduction.debug('Debug')

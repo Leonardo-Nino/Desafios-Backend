@@ -38,5 +38,8 @@ export const loggerProduction = winston.createLogger({
     winston.format.colorize({ all: true }), //all true is for both title and description text color
     winston.format.simple()
   ),
-  transports: [new winston.transports.Console()],
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'Error.log', level: 'error' }),
+  ],
 })

@@ -1,11 +1,11 @@
 {
-  "name": "desafio_logger",
+  "name": "testing_docker",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/App.js"
+    "start": "nodemon src/App.js"
   },
   "keywords": [],
   "author": "",

@@ -11,6 +11,7 @@ import sessionRouters from './routes/session.routes.js'
 import registerRouter from './routes/register.routes.js'
 import mockingProductsRouter from './Testing/routes/mockingproducts.routes.js'
 import loggerRoutes from './routes/loggerTest.routes.js'
+import resetPasswordsRouter from './routes/resetPasswor.routes.js'
 
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -93,5 +94,6 @@ app.use('/api/session', sessionRouters)
 app.use('/api/register', registerRouter)
 app.use('/api/mockingproducts', mockingProductsRouter)
 app.use('/api/loggerTest', loggerRoutes)
+app.use('/api/resetPass', resetPasswordsRouter)
 
-app.use(errorHandler)
+//app.use(errorHandler)

@@ -1,4 +1,4 @@
-import 'dotenv/config'
+ import 'dotenv/config'
 import passport from 'passport'
 import { validatePassword } from '../utils/bcrypt.js'
 import { Strategy as GitHubStrategy } from 'passport-github2'

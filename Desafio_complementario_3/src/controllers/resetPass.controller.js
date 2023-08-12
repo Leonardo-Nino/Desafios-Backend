@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { transporter } from '../utils/nodemailer.js'
 import { generateToken } from '../utils/JWTtoken.js'
 import { userModel } from '../DAL/mongoDB/models/user.js'
+import { changePassword } from '../DAL/DAOs/mongoDAO/registerMongo.js'
 import jwt from 'jsonwebtoken'
 
 export const generatelink = async (req, res) => {
@@ -27,17 +28,26 @@ export const generatelink = async (req, res) => {
   }
 }
 
-export const newPass = (req, res) => {
+export const newPass = async (req, res) => {
+  const { pass } = req.body
   const { token } = req.params
-  const isValidToken = jwt.verify(token, process.env.JWT_SECRET)
+
   try {
+    const isValidToken = jwt.verify(token, process.env.JWT_SECRET)
     if (isValidToken) {
-      res.status(200).json({ Message: 'todo bien hasta aca ' })
+      //console.log(isValidToken.user)
+
+      const userEmail = { email: isValidToken.user.email }
+      const newPass = {
+        password: pass,
+      }
+      const user = await changePassword(userEmail, newPass)
+      console.log(user)
+
+      res.status(200).json({ Message: 'New password changed' })
     } else console.log('algo anda mal')
   } catch (error) {
-    res.send('Error retriveing user? ' + error)
+    res.send(error)
     console.log(error)
   }
 }
-
-//export const checkToken = (req, res) => {}

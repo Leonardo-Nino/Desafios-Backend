@@ -16,3 +16,14 @@ export const createUser = async (obj) => {
     return error
   }
 }
+
+export const changePassword = async (email, obj) => {
+  try {
+    const hashPass = await hashPassword(obj.password)
+    const newObj = { ...obj, password: hashPass }
+    const newPassword = await userModel.findOneAndUpdate(email, newObj)
+    return newPassword
+  } catch (error) {
+    return error
+  }
+}

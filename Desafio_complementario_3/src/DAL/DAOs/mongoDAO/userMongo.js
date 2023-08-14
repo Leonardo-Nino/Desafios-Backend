@@ -25,3 +25,12 @@ export const getUsersByCustomFilter = async (filter) => {
     return error
   }
 }
+
+export const changeRole = async (id, obj) => {
+  try {
+    const newRole = await userModel.findByIdAndUpdate(id, obj)
+    return newRole
+  } catch (error) {
+    return error
+  }
+}

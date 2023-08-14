@@ -11,6 +11,7 @@ const productSchema = new Schema({
   category: { type: String, required: true },
   code: { type: String, required: true },
   stock: { type: Number, required: true },
+  owner: { type: Schema.Types.ObjectId, ref: 'users', default: 'admin' },
 })
 
 productSchema.plugin(paginate)

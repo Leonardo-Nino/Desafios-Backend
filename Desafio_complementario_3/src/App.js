@@ -98,4 +98,4 @@ app.use('/api/loggerTest', loggerRoutes)
 app.use('/api/resetPass', resetPasswordsRouter)
 app.use('/api/user', userRouter)
 
-//app.use(errorHandler)
+app.use(errorHandler)

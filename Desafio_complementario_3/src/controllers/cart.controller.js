@@ -60,6 +60,9 @@ export const addProductToCart = async (req, res, next) => {
   const cart = await getCart({ _id: cid })
   const product = await getProductsById({ _id: pid })
   try {
+    if (req.user.role === 'premium' && product.owner === req.user.email) {
+      throw new Error('Product owner')
+    }
     if (product._id === undefined || quantity <= 0) {
       CustomError.createError({
         name: 'Product creation error',

@@ -102,7 +102,15 @@ export const putProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   const { id } = req.params
+  const product = await getProductsById(id)
+  // console.log(product)
+  // console.log(req.user)
+
   try {
+    if (req.user.email !== product.owner || product.owner !== 'admin') {
+      throw new Error('Unauthorized to delete product')
+    }
+
     await productDelete(id)
 
     res.status(200).send('Product deleted successfully')

@@ -13,6 +13,8 @@ import mockingProductsRouter from './Testing/routes/mockingproducts.routes.js'
 import loggerRoutes from './routes/loggerTest.routes.js'
 import resetPasswordsRouter from './routes/resetPasswor.routes.js'
 import userRouter from './routes/user.routes.js'
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUiExpress from 'swagger-ui-express'
 
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -33,6 +35,27 @@ import { loggerMiddleware } from './middleware/logger.js'
 
 const app = express()
 const port = 4000
+
+//Swagger configuration
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.1.0',
+    info: {
+      title: 'Documentation of APIs',
+      description: 'Info product and cart modules',
+      version: '1.0.0',
+      contact: {
+        name: 'Leonardo Niño',
+        url: 'https://www.linkedin.com/in/leonardo-nino',
+        email: 'leonardoninio@gmail.com',
+      },
+    },
+  },
+  apis: [`${__dirname}/docs/**/.yalm`],
+}
+
+const spec = swaggerJSDoc(swaggerOptions)
 
 // Cookies configuration
 
@@ -97,5 +120,6 @@ app.use('/api/mockingproducts', mockingProductsRouter)
 app.use('/api/loggerTest', loggerRoutes)
 app.use('/api/resetPass', resetPasswordsRouter)
 app.use('/api/user', userRouter)
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(spec))
 
 app.use(errorHandler)

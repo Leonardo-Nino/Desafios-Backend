@@ -18,9 +18,7 @@ cartsRouters.get('/:cid', getProducFromCart)
 
 cartsRouters.delete('/:cid', deleteAllProducsFromCart)
 
-cartsRouters.post('/:cid/product/:pid', addProductToCart)
-
-//, auth(['user'])
+cartsRouters.post('/:cid/product/:pid', auth(['user']), addProductToCart)
 
 cartsRouters.put('/:cid/product/:pid', updateQuantity)
 

@@ -42,7 +42,7 @@ const swaggerOptions = {
   definition: {
     openapi: '3.1.0',
     info: {
-      title: 'Documentation of APIs',
+      title: 'Ecommerce APIs documentation for CoderHouse proyect',
       description: 'Info product and cart modules',
       version: '1.0.0',
       contact: {
@@ -52,7 +52,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: [`${__dirname}/docs/**/.yalm`],
+  apis: [`${__dirname}/docs/**/*.yaml`],
 }
 
 const spec = swaggerJSDoc(swaggerOptions)

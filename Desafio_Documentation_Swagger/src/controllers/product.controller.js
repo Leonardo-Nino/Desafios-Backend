@@ -27,7 +27,6 @@ export const getProductById = async (req, res) => {
 
   try {
     const product = await getProductsById(id)
-
     res.render('products', {
       title: product.title,
       price: product.price,

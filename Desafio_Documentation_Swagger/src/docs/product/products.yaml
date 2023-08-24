@@ -153,7 +153,7 @@ components:
         code: 
           type: string
           description: Product code
-        stock: 
+        stock:
           type: number
           description: Product stock
         owner: 

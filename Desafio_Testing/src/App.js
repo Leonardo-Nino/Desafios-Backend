@@ -9,7 +9,6 @@ import cartsRouters from './routes/carts.routes.js'
 import messagesRouters from './routes/messages.routes.js'
 import sessionRouters from './routes/session.routes.js'
 import registerRouter from './routes/register.routes.js'
-import mockingProductsRouter from './Testing/routes/mockingproducts.routes.js'
 import loggerRoutes from './routes/loggerTest.routes.js'
 import resetPasswordsRouter from './routes/resetPasswor.routes.js'
 import userRouter from './routes/user.routes.js'
@@ -116,7 +115,6 @@ app.use('/api/carts', cartsRouters)
 app.use('/api/messages', messagesRouters)
 app.use('/api/session', sessionRouters)
 app.use('/api/register', registerRouter)
-app.use('/api/mockingproducts', mockingProductsRouter)
 app.use('/api/loggerTest', loggerRoutes)
 app.use('/api/resetPass', resetPasswordsRouter)
 app.use('/api/user', userRouter)

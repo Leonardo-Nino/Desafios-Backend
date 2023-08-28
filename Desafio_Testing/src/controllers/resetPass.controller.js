@@ -19,7 +19,7 @@ export const generatelink = async (req, res) => {
         to: email,
         subject: `Change password request`,
         text: `Hello, ${user.first_name} please follow the  link to change your password:
-         ${sendLink}`,
+        ${sendLink}`,
       })
       res.status(200).send('Mail sent successfully')
     }

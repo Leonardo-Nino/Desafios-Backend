@@ -13,14 +13,17 @@ after(async () => {
     await mongoose.connection.close()
 })
 
-export const dropUser = async () => {
-    await userModel.collection.drop()
-}
 
-export const dropProduct = async () => {
-    await productModel.collection.drop()
-}
+// borra toda la coleccion  NO USAR
 
-export const dropCart = async () => {
-    await cartModel.collection.drop()
-}
+// export const dropUser = async () => {
+//     await userModel.collection.drop()
+// }
+
+// export const dropProduct = async () => {
+//     await productModel.collection.drop()
+// }
+
+// export const dropCart = async () => {
+//     await cartModel.collection.drop()
+// }

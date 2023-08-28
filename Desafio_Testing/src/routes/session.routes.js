@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { login, logout } from '../controllers/session.controller.js'
+import { login, logout, current } from '../controllers/session.controller.js'
 import passport from 'passport'
 
 const sessionRouter = Router()
@@ -23,5 +23,8 @@ sessionRouter.post(
 // ruta logout
 
 sessionRouter.get('/logout', logout)
+
+
+sessionRouter.get('/current', current);
 
 export default sessionRouter

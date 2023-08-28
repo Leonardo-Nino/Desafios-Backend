@@ -17,7 +17,7 @@ export const newUser = async (req, res) => {
         subject: `Welcome  ${first_name}`,
         text: `User created successfully `,
       })
-      res.status(200).redirect('session/login')
+      res.status(200)//.redirect('session/login')
     }
   } catch (error) {
     res.status(500).json({ messasge: error })

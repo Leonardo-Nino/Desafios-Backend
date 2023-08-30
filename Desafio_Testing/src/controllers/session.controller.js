@@ -10,7 +10,7 @@ export const login = async (req, res) => {
     if (!req.user) return res.status(400).send('Error loading user' + error)
     const user = new currentUser(req.user)
     const token = generateToken(user)
-    res.cookie('coderCookie', token, { maxAge: 3600000, httpOnly: true }).redirect('/api/products')
+    res.cookie('myCookie', token, { maxAge: 3600000, httpOnly: true }).redirect('/api/products')
   } catch (error) {
     console.error(error)
     res.status(401).send('Error attempting login')
@@ -34,7 +34,7 @@ export const logout = async (req, res, next) => {
 
 export const current = async (req, res) => {
   try {
-    const cookie = req.cookies['coderCookie']
+    const cookie = req.cookies['myCookie']
     const user = jwt.verify(cookie, process.env.JWT_SECRET);
     if (user)
       return res.send({ status: "success", payload: user })
